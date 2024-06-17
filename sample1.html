@@ -1,0 +1,31 @@
+ <!DOCTYPE HTML>
+ <html>
+ <head>
+    <script src="jquery-1.7.2.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+<script src="jquery.ui.touch-punch.min.js"></script>
+ <style type="text/css">
+       #div1 {width:350px;height:70px;padding:10px;border:1px solid #aaaaaa;}
+ </style>
+ </head>
+ <body>
+
+ <p>Drag the W3Schools image into the rectangle:</p>
+
+ <div id="div1"></div>
+ <br>
+ <img id="drag1" src="img_logo.jpg" width="60" height="69">
+<script>
+    $('#drag1').draggable();
+    $( "#div1" ).droppable({
+        drop: function( event, ui ) {
+          $( this )
+            .addClass( "isDropped" )
+            .html( "Dropped!" );
+        }
+      });
+   
+
+</script>
+</body>
+</html>
