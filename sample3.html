@@ -15,7 +15,15 @@
   <script src="jquery.ui.touch-punch.min.js"></script>
   <script>
   $( function() {
+
     $( "#sortable" ).sortable();
+    $( "#sortable" ).droppable({
+        drop: function( event, ui ) {
+          $( this )
+            .addClass( "isDropped" )
+            .html( "Dropped!" );
+        }
+      })
   } );
   </script>
 </head>
