@@ -15,28 +15,54 @@
   <script src="jquery.ui.touch-punch.min.js"></script>
   <script>
   $( function() {
+var BlazorInterop = BlazorInterop || {}
+BlazorInterop.CreateObject = function () {
+	var defaultId = 1;
+	var defaultStr = "";
+	var CommitteeApplicationQStatusViewModelObj = {
+		CommitteeApplicationId: defaultId,
+		CommitteeId: defaultId,
+		CommitteeTypeId: defaultId,
+		Committee: defaultStr,
+		RankOrder: defaultStr,
+		QStatus: defaultStr,
+		RowId: defaultId
+	};
+	return CommitteeApplicationQStatusViewModelObj;
+}
+    $( "#sortable" ).sortable({
+        stop: function (e, ui) {
+			var array = [];
+			var items = $(".ui-state-default");
+			items.each(function (index, tr) {
+				var obj = BlazorInterop.CreateObject();
+				var td = $(tr).find("td")[0];
+				var strClass = $(td).attr('class');
+				var start = strClass.indexOf("start-");
+				var end = strClass.indexOf("-end", start);
+				var rank = $(tr).find("td")[3];
 
-    $( "#sortable" ).sortable();
-    $( "#sortable" ).droppable({
-        drop: function( event, ui ) {
-          $( this )
-            .addClass( "isDropped" )
-            .html( "Dropped!" );
-        }
-      })
-  } );
+				$(rank).text(index + 1);
+
+				obj.CommitteeApplicationId = Number(strClass.substring(start + 6, end));
+				obj.RankOrder = index + 1 + "";
+				array.push(obj);
+			});
+      }
+    })
+
   </script>
 </head>
 <body>
  
 <ul id="sortable">
-  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><td class="start-1-end">Item 1</td><td>Item 1</td><td>Item 11</td><td>Item 1</td></li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><td class="start-2-end" >Item 2</td><td>Item 2</td><td>Item 22</td><td>Item 2</td></li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><td class="start-3-end" >Item 3</td><td>Item 3</td><td>Item 33</td><td>Item 3</td></li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><td class="start-4-end" >Item 4</td><td>Item 4</td><td>Item 44</td><td>Item 4</td></li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><td class="start-5-end" >Item 5</td><td>Item 5</td><td>Item 55</td><td>Item 5</td></li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><td class="start-6-end" >Item 6</td><td>Item 6</td><td>Item 66</td><td>Item 6</td></li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><td class="start-7-end" >Item 7</td><td>Item 7</td><td>Item 77</td><td>Item 7</td></li>
 </ul>
  
  
